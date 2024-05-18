@@ -56,7 +56,7 @@ Si la cantidad de datos obtenidos por la aplicación no es grande, realmente no 
 
 De esto:
 
-```
+```javascript
 const newNoteMutation = useMutation({ 
     mutationFn: createNote,
     onSuccess: () => {
@@ -67,7 +67,7 @@ const newNoteMutation = useMutation({
 
 A esto:
 
-```
+```javascript
 const newNoteMutation = useMutation({ 
     mutationFn: createNote,
     onSuccess: (newNote) => {
@@ -82,4 +82,4 @@ En el callback `onSuccess`: El objeto `queryClient` primero lee el estado existe
 
 <!-- (˶ᵔ ᵕ ᵔ˶) -->
 ---
-Fuente: (https://fullstackopen.com/es/part6/react_query_use_reducer_y_el_contexto)[https://fullstackopen.com/es/part6/react_query_use_reducer_y_el_contexto]
+Fuente: [https://fullstackopen.com/es/part6/react_query_use_reducer_y_el_contexto](https://fullstackopen.com/es/part6/react_query_use_reducer_y_el_contexto)
