@@ -3,11 +3,10 @@ import { getNotes, createNote, updateNote } from './request'
 
 const App = () => {
   const queryClient = useQueryClient()
-  // Definición de una mutación la cual nos permitirá crear una nueva nota
+  
   const newNoteMutation = useMutation({ 
     mutationFn: createNote,
     onSuccess: () => {
-      // Se invalidan los datos actuales para que se actualicen
       queryClient.invalidateQueries({ queryKey: ['notes'] })
     },
   })
@@ -15,7 +14,6 @@ const App = () => {
     event.preventDefault()
     const content = event.target.note.value
     event.target.note.value = ''
-    // Se realiza la mutación 
     newNoteMutation.mutate({ content, important: true })
   }
 
