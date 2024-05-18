@@ -6,8 +6,9 @@ const App = () => {
   
   const newNoteMutation = useMutation({ 
     mutationFn: createNote,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['notes'] })
+    onSuccess: (newNote) => {
+      const notes = queryClient.getQueryData(['notes'])
+      queryClient.setQueryData(['notes'], notes.concat(newNote))
     },
   })
   const addNote = async (event) => {
@@ -19,8 +20,13 @@ const App = () => {
 
   const updateNoteMutation = useMutation({
     mutationFn: updateNote,
-    onSuccess: () => {
-      queryClient.invalidateQueries('notes')
+    onSuccess: (updatedNote) => {
+      const notes = queryClient.getQueryData(['notes'])
+      // Se remplaza la nota recibida como parámetro por la nota con el mismo id en el arreglo notes
+      const updatedNotes = notes.map(note => 
+        note.id === updatedNote.id ? updatedNote : note
+      )
+      queryClient.setQueryData(['notes'], updatedNotes)
     },
   })
   const toggleImportance = (note) => {
@@ -29,7 +35,8 @@ const App = () => {
 
   const result = useQuery({
     queryKey: ['notes'],
-    queryFn: getNotes
+    queryFn: getNotes,
+    refetchOnWindowFocus: false
   })
   console.log(JSON.parse(JSON.stringify(result)))
 
